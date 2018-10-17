@@ -22,19 +22,19 @@ class EventListItem extends Component {
         </Segment>
         <Segment>
           <span>
-            <Icon name="clock" /> date |
-            <Icon name="marker" /> time
+            <Icon name="clock" /> {event.date} |
+            <Icon name="marker" /> {event.venue}
           </span>
         </Segment>
         <Segment secondary>
           <List horizontal>
-            <EventListAttendee />
-            <EventListAttendee />
-            <EventListAttendee />
+            {event.attendees.map((attendee) => {
+              <EventListAttendee key={attendee.id} attendee={attendee} />
+            })}
           </List>
         </Segment>
         <Segment clearing>
-          <span>Description will go here</span>
+          <span>{event.description}</span>
           <Button as="a" color="teal" floated="right" content="View" />
         </Segment>
       </Segment.Group>

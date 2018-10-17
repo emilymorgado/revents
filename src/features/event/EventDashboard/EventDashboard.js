@@ -55,16 +55,58 @@ const events = [
 ];
 
 class EventDashboard extends Component {
+  // constructor(props) {
+  //   super(props)
+  //
+  //   this.state = {
+  //     events: events,
+  //     isOpen: false,
+  //   }
+    // this.handleFormOpen = this.handleFormOpen.bind(this);
+  // }
+
+  state = {
+    events: events,
+    isOpen: false,
+  }
+
+  handleFormOpen = () => {
+    this.setState({
+      isOpen: true
+    });
+  }
+
+  // This allows passing data and binding to the correct this
+  // without binding inside the render
+  // binding inside the render is expensive as it creates a new function
+  // every time it's called
+
+  // This is still experimental, so using the top level bind is currently
+  // best practice
+
+  // handleFormOpen = (thing) => () => {
+  //   console.log(thing)
+  // }
+
+  // onClick={this.handleFormOpen('a string')}
+
+
+  handleCancel = () => {
+    this.setState({
+      isOpen: false
+    });
+  }
+
   render() {
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList events={events}/>
+          <EventList events={this.state.events}/>
         </Grid.Column>
 
         <Grid.Column width={6}>
-          <Button positive content='Create Event' />
-          <EventForm />
+          <Button onClick={this.handleFormOpen} positive content='Create Event' />
+          {this.state.isOpen && <EventForm handleCancel={this.handleCancel} />}
         </Grid.Column>
       </Grid>
     )
